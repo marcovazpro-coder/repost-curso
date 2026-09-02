@@ -90,6 +90,7 @@ public class ProductoController {
     public ResponseEntity<Void> eliminar(
             @PathVariable @Positive(message = "El ID debe ser positivo") Long id
     ){
+        productoService.eliminar(id);
         return ResponseEntity.noContent().build();
     }
 }
