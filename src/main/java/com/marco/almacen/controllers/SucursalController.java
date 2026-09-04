@@ -24,17 +24,18 @@ import java.util.List;
 public class SucursalController {
     private final SucursalService sucursalService;
 
+    //Obtener listar
     @GetMapping
-    @Operation(
-            summary = "Listar Sucursals",
-            tags = {"Sucursals - Consultas"}
-    )
-    public ResponseEntity<List<SucursalResponse>> listar(    ){
-        return ResponseEntity.ok(sucursalService.listar());
+    @Operation(summary = "Listar Sucursals",tags = {"Sucursals - Consultas"})
+    public ResponseEntity<List<SucursalResponse>> listar(
+            @RequestParam(required = false) String nombre,
+            @RequestParam(required = false) String direccion
+    ){
+        return ResponseEntity.ok(sucursalService.listar(nombre, direccion));
     }
 
 
-
+    // Obtener
     @GetMapping("/{id}")
     @Operation(
             summary = "Obtener sucursal por id",
@@ -43,6 +44,7 @@ public class SucursalController {
     public ResponseEntity<SucursalResponse> obtenerPorId(
             @PathVariable @Positive(message = "El ID debe ser positivo") Long id
     ){
+        //if(id == 0){System.out.println("Tampoco puede ser 0");}
         return ResponseEntity.ok(sucursalService.obtenerPorId(id));
     }
 

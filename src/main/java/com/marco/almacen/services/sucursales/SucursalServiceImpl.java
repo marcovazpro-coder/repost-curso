@@ -24,7 +24,7 @@ public class SucursalServiceImpl implements SucursalService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<SucursalResponse> listar(){
+    public List<SucursalResponse> listar(String nombre, String direccion){
         log.info("Listando todas las sucursales");
         return sucursalRepository.findAll().stream()
                 .map(sucursalMapper::entidadAResponse).toList();

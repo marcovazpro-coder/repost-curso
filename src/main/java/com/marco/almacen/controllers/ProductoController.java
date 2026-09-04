@@ -13,12 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/producto")
 @AllArgsConstructor
 @Validated
 @Tag(name = "Productos", description = "Endpoints para la gestion de productos")
@@ -26,11 +25,9 @@ import java.util.List;
 public class ProductoController {
     private final ProductoService productoService;
 
-    @GetMapping
-    @Operation(
-            summary = "Listar productos",
-            tags = {"Productos - Consultas"}
-    )
+    //Listar productos
+    @GetMapping("/productos")
+    @Operation(summary = "Listar productos",tags = {"Productos - Consultas"})
     public ResponseEntity<List<ProductoResponse>> listar(
         @RequestParam(required = false) String nombre,
         @RequestParam(required = false) String categoria,
@@ -41,19 +38,20 @@ public class ProductoController {
     }
 
 
-
+    // Obtener por id
     @GetMapping("/{id}")
     @Operation(
-            summary = "Listar productos",
+            summary = "Otener por ID",
             tags = {"Productos - Consultas"}
     )
     public ResponseEntity<ProductoResponse> obtenerPorId(
         @PathVariable @Positive(message = "El ID debe ser positivo") Long id
     ){
         return ResponseEntity.ok(productoService.obtenerPorId(id));
+
     }
 
-    // REGISTRAR
+    // REGISTRAR PRODUCTO
 
     @PostMapping("/{id}")
     @Operation(

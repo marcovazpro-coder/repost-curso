@@ -15,7 +15,7 @@ public class ProductoMapper {
                 .nombre(request.nombre().trim())
                 .categoria(categoria)
                 .precio(request.precio())
-                .cantidad(request.cantdad())
+                .cantidad(request.cantidad())
                 .build();
     }
     public ProductoResponse entidadAResponse(Producto producto){

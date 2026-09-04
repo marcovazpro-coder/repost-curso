@@ -25,8 +25,8 @@ public class ProductoServicelmpl implements ProductoService{
     private final ProductoRepository productoRepository;
     
     private final ProductoMapper productoMapper;
-    
-    
+
+/*
     @Override
     @Transactional(readOnly = true)
     public List<ProductoResponse> listar(String nombre, String categoria, BigDecimal precioMin, BigDecimal precioMax) {
@@ -36,11 +36,33 @@ public class ProductoServicelmpl implements ProductoService{
                 .map(productoMapper::entidadAResponse).toList();
 
     }
+*/
+    @Override
+    @Transactional(readOnly = true)
+    public List<ProductoResponse> listar(String nombre, String categoria, BigDecimal precioMin, BigDecimal precioMax) {
+
+        log.info("Listando los productos");
+
+        Categoria categoriaEnum = null;
+
+        if (categoria != null && !categoria.isBlank()) {
+            categoriaEnum = Categoria.obtenerCategoriaPorDescripcion(categoria);
+        }
+
+        return productoRepository.buscarConFiltros(
+                        nombre,
+                        categoriaEnum,
+                        precioMin,
+                        precioMax
+                ).stream()
+                .map(productoMapper::entidadAResponse)
+                .toList();
+    }
 
     @Override
     @Transactional(readOnly = true)
     public ProductoResponse obtenerPorId(Long id) {
-        return null;
+        return productoMapper.entidadAResponse(obtenerProductoOException(id));
     }
 
     @Override
@@ -65,9 +87,9 @@ public class ProductoServicelmpl implements ProductoService{
         producto.actualizar(
                 request.nombre(),
                 Categoria.obtenerCategoriaPorDescripcion(
-                        request.categoria()),
+                request.categoria()),
                 request.precio(),
-                request.cantdad()
+                request.cantidad()
         );
         productoRepository.save(producto); //No es necesario por dirty checking
         log.info("Producto con id {} actualizado",id);

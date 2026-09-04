@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SucursalService {
 
-    List<SucursalResponse> listar();
+    List<SucursalResponse> listar(String nombre, String direccion);
 
     SucursalResponse obtenerPorId(Long id);
     SucursalResponse registrar(SucursalRequest request);

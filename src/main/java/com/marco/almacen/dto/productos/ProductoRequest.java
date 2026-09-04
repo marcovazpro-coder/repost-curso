@@ -14,35 +14,34 @@ public record ProductoRequest(
             description = "Nombre del producto",
             example = "Laptop Gamer"
     )
-
-
     @NotBlank(message = "El nombre es requerido")
     @Size(min=5, max=30, message="El nombre debe tener entre 5 y 30 caracteres")
     String nombre,
+
 
     @Schema(
             description = "Categoria del producto",
             example = "Electrónica"
     )
-
     @NotNull
     String categoria,
+
 
     @Schema(
             description = "Precio del producto",
             example = "15999.99"
     )
-
     @NotNull
     @Positive
     BigDecimal precio,
 
-    @Schema(
-            description = "Nombre del producto",
-            example = "Laptop Gamer"
-    )
 
+
+    @Schema(
+            description = "Cantidad",
+            example = "2000.00"
+    )
     @NotNull
     @Positive
-    Integer cantdad
+    Integer cantidad
 ){}

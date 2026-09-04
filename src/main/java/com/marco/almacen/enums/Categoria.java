@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum Categoria {
-    ALIMENTO("Alimneto"),
+    ALIMENTO("Alimento"),
     HIGIENE( "Higiene"),
     JUGUETE("Juguete"),
     ELECTRONICA("Electronica"),
